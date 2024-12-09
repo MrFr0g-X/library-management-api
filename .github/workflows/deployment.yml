@@ -1,0 +1,29 @@
+name: Deployment
+on:
+  push:
+    branches: [ deploy ]  # runs on every push to 'deploy' branch
+
+jobs:
+  deploy-to-azure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # Login to Azure
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Build and push image to ACR (example, adjust names as needed)
+      - name: Build and push image
+        run: |
+          docker build -t myacr.azurecr.io/library-api:latest .
+          echo ${{ secrets.AZ_ACR_PASSWORD }} | docker login myacr.azurecr.io -u ${{ secrets.AZ_ACR_USERNAME }} --password-stdin
+          docker push myacr.azurecr.io/library-api:latest
+
+      # Deploy to Azure Web App (adjust app name, resource group)
+      - name: Deploy to Azure Web App
+        run: |
+          az webapp config container set -n MY_WEBAPP_NAME -g MY_RESOURCE_GROUP -i myacr.azurecr.io/library-api:latest
+          az webapp restart -n MY_WEBAPP_NAME -g MY_RESOURCE_GROUP
