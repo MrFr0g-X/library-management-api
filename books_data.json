@@ -1,0 +1,16 @@
+[
+    {
+        "title": "manga update",
+        "author": "mazen",
+        "published_year": 2020,
+        "isbn": "12345",
+        "genre": "mazen"
+    },
+    {
+        "title": "The Hobbit",
+        "author": "J.R.R. Tolkien",
+        "published_year": 1937,
+        "isbn": "123456789",
+        "genre": "Fantasy"
+    }
+]
