@@ -1,29 +1,34 @@
-name: Deployment
+name: Deploy to Azure
+
 on:
   push:
-    branches: [ deploy ]  # runs on every push to 'deploy' branch
+    branches:
+      - deploy  # Trigger the workflow on changes to the "deploy" branch
 
 jobs:
-  deploy-to-azure:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
 
-      # Login to Azure
-      - name: Azure Login
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # Step 2: Log in to Azure
+      - name: Log in to Azure
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Build and push image to ACR (example, adjust names as needed)
-      - name: Build and push image
+      # Step 3: Build and Push Docker Image
+      - name: Build and Push Docker Image
         run: |
-          docker build -t myacr.azurecr.io/library-api:latest .
-          echo ${{ secrets.AZ_ACR_PASSWORD }} | docker login myacr.azurecr.io -u ${{ secrets.AZ_ACR_USERNAME }} --password-stdin
-          docker push myacr.azurecr.io/library-api:latest
+          docker build -t mysweacrregistry.azurecr.io/library-api:latest .
+          echo ${{ secrets.AZ_ACR_PASSWORD }} | docker login mysweacrregistry.azurecr.io -u ${{ secrets.AZ_ACR_USERNAME }} --password-stdin
+          docker push mysweacrregistry.azurecr.io/library-api:latest
 
-      # Deploy to Azure Web App (adjust app name, resource group)
+      # Step 4: Deploy the Docker Image to Azure Web App
       - name: Deploy to Azure Web App
         run: |
-          az webapp config container set -n MY_WEBAPP_NAME -g MY_RESOURCE_GROUP -i myacr.azurecr.io/library-api:latest
-          az webapp restart -n MY_WEBAPP_NAME -g MY_RESOURCE_GROUP
+          az webapp config container set -n my-library-app -g SWE -i mysweacrregistry.azurecr.io/library-api:latest
+          az webapp restart -n my-library-app -g SWE

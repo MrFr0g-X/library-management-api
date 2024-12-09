@@ -45,6 +45,10 @@ def add_book():
     save_books(books)
     return jsonify(new_book), 201
 
+@app.route('/health')
+def health_check():
+    return 'OK', 200
+
 # GET /books/search - search books by author, year, genre
 @app.route('/books/search', methods=['GET'])
 def search_books():
