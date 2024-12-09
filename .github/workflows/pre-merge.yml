@@ -1,6 +1,7 @@
 name: Pre-Merge Checks
-on: pull_request:
-  branches: [ main ]
+on:
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-and-test:
@@ -13,7 +14,7 @@ jobs:
           python-version: '3.9'
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Test
+      - name: Run Tests
         run: pytest tests
       - name: Lint
         run: pip install flake8 && flake8 .
