@@ -51,6 +51,26 @@ def add_book():
 def health_check():
     return 'OK', 200
 
+@app.route('/')
+def homepage():
+    return '''
+    <html>
+        <head>
+            <title>Library Management API</title>
+        </head>
+        <body>
+            <h1>Welcome to the Library Management API</h1>
+            <p>Click the buttons below to access the API endpoints:</p>
+            <ul>
+                <li><a href="/books">View All Books (GET)</a></li>
+                <li><a href="/api-docs">Swagger API Documentation</a></li>
+                <li><a href="/books/search?author=example">Search Books by Author</a></li>
+            </ul>
+        </body>
+    </html>
+    '''
+
+
 # GET /books/search - search books by author, year, genre
 @app.route('/books/search', methods=['GET'])
 def search_books():
