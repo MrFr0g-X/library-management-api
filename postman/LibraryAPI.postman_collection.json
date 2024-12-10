@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "af837dcc-e451-4781-9f3e-aed7b0bf26b1",
+		"name": "Library Management API",
+		"description": "StartFragmentThis collection contains all requests for the Library Management APIEndFragment.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39076728"
+	},
+	"item": [
+		{
+			"name": "books",
+			"item": [
+				{
+					"name": "GET All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"The Hobbit\",\r\n  \"author\": \"J.R.R. Tolkien\",\r\n  \"published_year\": 1937,\r\n  \"isbn\": \"123456785\",\r\n  \"genre\": \"Fantasy\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Search Books",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Book by ISBN",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/books/123456789",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"books",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Book by ISBN",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"The Hobbit: Updated Edition\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/books/123456785",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"books",
+								"123456785"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
